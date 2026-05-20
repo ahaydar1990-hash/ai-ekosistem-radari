@@ -102,6 +102,11 @@ st.markdown("""
 .stTabs [data-baseweb="tab"] { background: transparent !important; color: var(--text-muted) !important; font-family: 'Space Mono', monospace !important; font-size: 0.75rem !important; padding: 0.6rem 1.2rem !important; border-radius: 0 !important; border-bottom: 2px solid transparent !important; text-transform: uppercase; letter-spacing: 1px; }
 .stTabs [aria-selected="true"] { color: var(--accent-cyan) !important; border-bottom: 2px solid var(--accent-cyan) !important; }
 h1, h2, h3, h4 { color: var(--text-primary) !important; }
+#MainMenu{display:none!important;}
+footer{display:none!important;}
+[data-testid="stToolbar"]{display:none!important;}
+[data-testid="stHeader"]{display:none!important;}
+header{display:none!important;}
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
@@ -118,7 +123,7 @@ GOMME_MODELI   = "sentence-transformers/all-MiniLM-L6-v2"
 CHUNK_BOYUTU   = 500
 CHUNK_ORTUSME  = 50
 GETIRME_SAYISI = 5
-GEMINI_MODELI  = "gemini-2.5-flash"
+GEMINI_MODELI  = "ggemini-2.5-flash"
 
 def _api_anahtari_al() -> str:
     try:
@@ -157,12 +162,12 @@ SORU: {question}
 DOĞAL TÜRKÇE YANIT (tam ve akıcı):"""
 
 ONERILEN_SORULAR = [
-    "Hangi AI araçları ücretsiz?",
-    "En çok yıldız alan AI projeleri?",
-    "Generative AI haberleri neler?",
-    "LLM nedir, hangi projeler var?",
-    "Makine öğrenmesi araçları öner",
-    "Bu haftaki AI gelişmeleri?",
+    "2026'da en iyi ücretsiz AI araçları?",
+    "Bu hafta ChatGPT haberleri neler?",
+    "Görüntü üreten AI araçlarını karşılaştır",
+    "GitHub'da en çok yıldız alan AI projeleri?",
+    "Google Gemini son haberleri neler?",
+    "Kod yazmak için en iyi AI araçları hangileri?",
 ]
 
 HEADERS = {
@@ -251,7 +256,11 @@ def _haberleri_cek(max_haber: int = 100) -> List[Dict]:
 
 def _arac_depolarini_cek(max_sayfa=10) -> List[Dict]:
     from bs4 import BeautifulSoup
-    konular = ['ai-tools', 'llm', 'artificial-intelligence', 'machine-learning', 'generative-ai']
+    konular = [
+    'ai-tools', 'llm', 'artificial-intelligence',
+    'machine-learning', 'generative-ai',
+    'chatgpt', 'stable-diffusion', 'image-generation',
+]
     tum_araclar = []
     gorulmus = set()
 
@@ -608,6 +617,16 @@ with sekme1:
 
     if sorgula_btn and soru_girisi.strip():
         st.session_state["bekleyen_soru"] = ""
+
+        # Rate limit koruması — sorgular arası 3 saniye bekleme
+        simdi = time.time()
+        son_sorgu = st.session_state.get("son_sorgu_zamani", 0)
+        gecen = simdi - son_sorgu
+        if gecen < 3:
+            st.warning(f"⏳ Lütfen {int(3 - gecen) + 1} saniye bekleyin...")
+            time.sleep(int(3 - gecen) + 1)
+        st.session_state["son_sorgu_zamani"] = time.time()
+
         if not rag or not rag.get("hazir"):
             st.error("⚠️ RAG sistemi hazır değil. Veriyi Güncelle butonuna tıklayın.")
         elif not GEMINI_API_ANAHTARI:
