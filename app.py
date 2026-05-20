@@ -123,7 +123,7 @@ GOMME_MODELI   = "sentence-transformers/all-MiniLM-L6-v2"
 CHUNK_BOYUTU   = 500
 CHUNK_ORTUSME  = 50
 GETIRME_SAYISI = 5
-GEMINI_MODELI  = "ggemini-2.5-flash"
+GEMINI_MODELI  = "gemini-2.5-flash"
 
 def _api_anahtari_al() -> str:
     try:
