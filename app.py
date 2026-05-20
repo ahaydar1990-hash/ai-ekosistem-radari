@@ -165,12 +165,12 @@ SORU: {question}
 DOĞAL TÜRKÇE YANIT (tam ve akıcı):"""
 
 ONERILEN_SORULAR = [
-    "LangChain nedir ve ne işe yarar?",
+    "Kod yazmak için en iyi AI araçları hangileri?",
     "GitHub'da en çok yıldız alan AI projeleri?",
     "FlowiseAI ile neler yapılabilir?",
     "Google Gemini son haberleri neler?",
     "Açık kaynak LLM projeleri hangileri?",
-    "AI ajan geliştirmek için hangi araçlar kullanılır?",
+    "AI ajanları için hangi araçlar kullanılır?",
 ]
 
 HEADERS = {
@@ -183,7 +183,7 @@ HEADERS = {
 # VERİ TOPLAMA FONKSİYONLARI — 24 SAATTE BİR OTOMATİK GÜNCELLEME
 # ══════════════════════════════════════════════════════════════
 
-@st.cache_data(ttl=86400, show_spinner=False)
+@st.cache_data(ttl=43200, show_spinner=False) 
 def veri_topla_ve_isle() -> pd.DataFrame:
     eski_df = pd.DataFrame()
     if os.path.exists(VERI_DOSYASI):
@@ -303,9 +303,11 @@ def _arac_depolarini_cek(max_sayfa=10) -> List[Dict]:
                         'tur': 'arac',
                         'rag_metni': f"AI ARACI: {repo_sahibi}/{repo_adi} (Dil: {dil}, Yıldız: {yildiz}) — {aciklama}"
                     })
-                time.sleep(2)
+                time.sleep(3.5) 
             except Exception:
+                time.sleep(2)
                 continue
+        time.sleep(5) 
     return tum_araclar
 
 # ══════════════════════════════════════════════════════════════
@@ -502,8 +504,12 @@ for anahtar, varsayilan in [
 # ══════════════════════════════════════════════════════════════
 
 with st.sidebar:
-    st.markdown('<div class="sidebar-logo">⚡ AI RADAR</div><div class="sidebar-version">v1.0.0 — Günlük Güncelleme</div>', unsafe_allow_html=True)
+    st.markdown('<div class=\"sidebar-logo\">⚡ AI RADAR</div><div class=\"sidebar-version\">v1.0.0 — Günlük Güncelleme</div>', unsafe_allow_html=True)
     veri_yukle_btn = st.button("⟳  Veriyi Güncelle", use_container_width=True)
+    
+    if veri_yukle_btn:
+        st.cache_data.clear()
+        st.session_state.veri_yuklendi = False
     st.markdown("---")
 
     if st.session_state.df_veri is not None:
