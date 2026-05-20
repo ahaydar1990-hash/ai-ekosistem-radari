@@ -165,12 +165,12 @@ SORU: {question}
 DOĞAL TÜRKÇE YANIT (tam ve akıcı):"""
 
 ONERILEN_SORULAR = [
-    "LangChain nedir ve ne işe yarar?"
-    "GitHub'da en çok yıldız alan AI projeleri?"
-    "FlowiseAI ile neler yapılabilir?"
-    "Google Gemini son haberleri neler?"
-    "Açık kaynak LLM projeleri hangileri?"
-    "AI ajan geliştirmek için hangi araçlar kullanılır?"
+    "LangChain nedir ve ne işe yarar?",
+    "GitHub'da en çok yıldız alan AI projeleri?",
+    "FlowiseAI ile neler yapılabilir?",
+    "Google Gemini son haberleri neler?",
+    "Açık kaynak LLM projeleri hangileri?",
+    "AI ajan geliştirmek için hangi araçlar kullanılır?",
 ]
 
 HEADERS = {
