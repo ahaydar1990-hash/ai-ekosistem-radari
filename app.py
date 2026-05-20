@@ -126,16 +126,19 @@ GETIRME_SAYISI = 5
 GEMINI_MODELI  = "gemini-2.5-flash"
 
 def _api_anahtari_al() -> str:
+    # Önce Streamlit Secrets'tan oku
     try:
-        from google.colab import userdata
-        k = userdata.get("GEMINI_API_KEY") or ""
+        k = st.secrets.get("GEMINI_API_KEY", "")
         if k: return k
     except Exception:
         pass
+    # Sonra environment variable
     k = os.environ.get("GEMINI_API_KEY", "")
     if k: return k
+    # Son olarak Colab
     try:
-        k = st.secrets.get("GEMINI_API_KEY", "")
+        from google.colab import userdata
+        k = userdata.get("GEMINI_API_KEY") or ""
         if k: return k
     except Exception:
         pass
