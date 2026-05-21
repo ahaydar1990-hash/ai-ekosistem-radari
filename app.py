@@ -64,8 +64,9 @@ st.markdown("""
 
 .stApp { background-color: var(--bg-primary); font-family: 'DM Sans', sans-serif; color: var(--text-primary); }
 .main .block-container { background-color: var(--bg-primary); padding: 1.5rem 2rem 3rem 2rem; max-width: 1400px; }
-[data-testid="stSidebar"] { background-color: var(--bg-secondary) !important; border-right: 1px solid var(--border) !important; min-width: 250px !important; max-width: 250px !important; }
-[data-testid="stSidebarCollapseButton"] { display: none !important; }
+[data-testid="stHeader"] { background: #0a0e17 !important; border-bottom: none !important; box-shadow: none !important; }
+header[data-testid="stHeader"] { background: #0a0e17 !important; border: none !important; box-shadow: none !important; }
+[data-testid="stHeader"] { display: none !important; }
 .radar-header { background: linear-gradient(135deg, #0f1520 0%, #131b2e 50%, #0f1520 100%); border: 1px solid var(--border-bright); border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
 .radar-header::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 30% 40%, rgba(0,212,255,0.05) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(0,255,136,0.04) 0%, transparent 60%); pointer-events: none; }
 .radar-title { font-family: 'Space Mono', monospace; font-size: 2.2rem; font-weight: 700; color: var(--accent-cyan); letter-spacing: -0.5px; margin: 0; line-height: 1.1; }
