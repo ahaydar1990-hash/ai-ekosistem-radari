@@ -102,11 +102,33 @@ st.markdown("""
 .stTabs [data-baseweb="tab"] { background: transparent !important; color: var(--text-muted) !important; font-family: 'Space Mono', monospace !important; font-size: 0.75rem !important; padding: 0.6rem 1.2rem !important; border-radius: 0 !important; border-bottom: 2px solid transparent !important; text-transform: uppercase; letter-spacing: 1px; }
 .stTabs [aria-selected="true"] { color: var(--accent-cyan) !important; border-bottom: 2px solid var(--accent-cyan) !important; }
 h1, h2, h3, h4 { color: var(--text-primary) !important; }
-#MainMenu{display:none!important;}
-footer{display:none!important;}
-[data-testid="stToolbar"]{display:none!important;}
-[data-testid="stHeader"]{display:none!important;}
-header{display:none!important;}
+[data-testid="stDecoration"], section[data-testid="stCustomComponentGpc"] {
+    display: none !important;
+}
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+header[data-testid="stHeader"] {
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: 0px !important;
+}
+[data-testid="stSidebarCollapseButton"] {
+    display: flex !important;
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    z-index: 999999 !important;
+    background-color: #131b2e !important;
+    border: 1px solid #2a3f5f !important;
+    border-radius: 8px !important;
+    color: #00d4ff !important;
+}
+footer {
+    display: none !important;
+}
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
