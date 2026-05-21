@@ -13,9 +13,7 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import PromptTemplate
 
-# ══════════════════════════════════════════════════════════════
-# SAYFA AYARLARI VE ÖZEL CSS
-# ══════════════════════════════════════════════════════════════
+    
 
 st.set_page_config(
     page_title="AI Ekosistem Radarı",
@@ -23,6 +21,24 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+# Kenar çubuğu açma/kapama butonunu göster
+st.markdown("""
+<script>
+setTimeout(function() {
+    var btns = window.parent.document.querySelectorAll('button');
+    btns.forEach(function(btn) {
+        btn.style.display = 'flex';
+        btn.style.visibility = 'visible';
+        btn.style.opacity = '1';
+    });
+}, 1000);
+</script>
+""", unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════
+# SAYFA AYARLARI VE ÖZEL CSS
+# ══════════════════════════════════════════════════════════════
+
 
 st.markdown("""
 <style>
@@ -48,7 +64,8 @@ st.markdown("""
 
 .stApp { background-color: var(--bg-primary); font-family: 'DM Sans', sans-serif; color: var(--text-primary); }
 .main .block-container { background-color: var(--bg-primary); padding: 1.5rem 2rem 3rem 2rem; max-width: 1400px; }
-[data-testid="stSidebar"] { background-color: var(--bg-secondary) !important; border-right: 1px solid var(--border) !important; }
+[data-testid="stSidebar"] { background-color: var(--bg-secondary) !important; border-right: 1px solid var(--border) !important; min-width: 250px !important; max-width: 250px !important; }
+[data-testid="stSidebarCollapseButton"] { display: none !important; }
 .radar-header { background: linear-gradient(135deg, #0f1520 0%, #131b2e 50%, #0f1520 100%); border: 1px solid var(--border-bright); border-radius: 16px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
 .radar-header::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 30% 40%, rgba(0,212,255,0.05) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(0,255,136,0.04) 0%, transparent 60%); pointer-events: none; }
 .radar-title { font-family: 'Space Mono', monospace; font-size: 2.2rem; font-weight: 700; color: var(--accent-cyan); letter-spacing: -0.5px; margin: 0; line-height: 1.1; }
@@ -96,39 +113,15 @@ st.markdown("""
 .sidebar-stat-value { font-family: 'Space Mono', monospace; color: var(--text-primary); font-size: 0.8rem; }
 .stTextInput > div > div > input { background-color: var(--bg-card) !important; border: 1px solid var(--border-bright) !important; border-radius: 10px !important; color: var(--text-primary) !important; font-family: 'DM Sans', sans-serif !important; padding: 0.7rem 1rem !important; font-size: 0.95rem !important; }
 .stTextInput > div > div > input:focus { border-color: var(--accent-cyan) !important; box-shadow: 0 0 0 2px rgba(0,212,255,0.1) !important; }
-.stButton > button { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,212,255,0.05)) !important; border: 1px solid rgba(0,212,255,0.4) !important; color: var(--accent-cyan) !important; font-family: 'Space Mono', monospace !important; font-size: 0.82rem !important; border-radius: 8px !important; padding: 0.5rem 1.2rem !important; transition: all 0.2s ease !important; }
+.stButton > button { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,212,255,0.05)) !important; border: 1px solid rgba(0,212,255,0.4) !important; color: var(--accent-cyan) !important; font-family: 'Space Mono', monospace !important; font-size: 0.78rem !important; border-radius: 8px !important; padding: 0.5rem 1rem !important; transition: all 0.2s ease !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
 .stButton > button:hover { background: linear-gradient(135deg, rgba(0,212,255,0.25), rgba(0,212,255,0.12)) !important; border-color: var(--accent-cyan) !important; box-shadow: var(--glow-cyan) !important; }
 .stTabs [data-baseweb="tab-list"] { background: transparent !important; border-bottom: 1px solid var(--border) !important; gap: 0 !important; }
 .stTabs [data-baseweb="tab"] { background: transparent !important; color: var(--text-muted) !important; font-family: 'Space Mono', monospace !important; font-size: 0.75rem !important; padding: 0.6rem 1.2rem !important; border-radius: 0 !important; border-bottom: 2px solid transparent !important; text-transform: uppercase; letter-spacing: 1px; }
 .stTabs [aria-selected="true"] { color: var(--accent-cyan) !important; border-bottom: 2px solid var(--accent-cyan) !important; }
 h1, h2, h3, h4 { color: var(--text-primary) !important; }
-[data-testid="stDecoration"], section[data-testid="stCustomComponentGpc"] {
-    display: none !important;
-}
-[data-testid="stToolbar"] {
-    display: none !important;
-}
-header[data-testid="stHeader"] {
-    background-color: transparent !important;
-    background-image: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    height: 0px !important;
-}
-[data-testid="stSidebarCollapseButton"] {
-    display: flex !important;
-    position: fixed !important;
-    top: 20px !important;
-    left: 20px !important;
-    z-index: 999999 !important;
-    background-color: #131b2e !important;
-    border: 1px solid #2a3f5f !important;
-    border-radius: 8px !important;
-    color: #00d4ff !important;
-}
-footer {
-    display: none !important;
-}
+#MainMenu { display: none !important; }
+[data-testid="stDecoration"] { display: none !important; }
+footer { display: none !important; }
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
@@ -585,6 +578,8 @@ rag = st.session_state.rag_sistemi
 haber_n = len(df[df["tur"] == "haber"]) if df is not None else 0
 arac_n  = len(df[df["tur"] == "arac"])  if df is not None else 0
 guncelleme = datetime.now().strftime("%d.%m.%Y %H:%M")
+
+
 
 st.markdown(f"""<div class="radar-header">
     <div class="radar-title">⚡ AI Ekosistem Radarı</div>
